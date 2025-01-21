@@ -35,31 +35,31 @@ clear; close all;
 %% Hyperparameter
 m=0.7; % Minimum mcore edges should satisfy
 
-%%
-file_path = "/Users/safuan/Python/IACV_project/camtripsfm/inlier_matches.txt";
-
-% Read the data as a table, skipping the header
-opts = detectImportOptions(file_path, 'FileType', 'text');
-opts.VariableNamesLine = 1; % Specify the header line
-data_table = readtable(file_path, opts);
-
-% Extract pair_id and other numeric columns as needed
-pair_ids = data_table.pair_id;
-rows = data_table.rows;
-cols = data_table.cols;
-config = data_table.config;
-
-% Example usage
-numMatches = rows; % Adjust based on your specific usage
-numEdges = size(pair_ids, 1);
-
-% Convert pair_ids to edges
-edges = nan(numEdges, 2);
-edges(:, 2) = mod(pair_ids, 2147483647);
-edges(:, 1) = (pair_ids - edges(:, 2)) / 2147483647;
+% %%
+% file_path = "/Users/safuan/Python/IACV_project/datasets/Alcatraz/alcatraz_matches.txt";
+% 
+% % Read the data as a table, skipping the header
+% opts = detectImportOptions(file_path, 'FileType', 'text');
+% opts.VariableNamesLine = 1; % Specify the header line
+% data_table = readtable(file_path, opts);
+% 
+% % Extract pair_id and other numeric columns as needed
+% pair_ids = data_table.pair_id;
+% rows = data_table.rows;
+% cols = data_table.cols;
+% config = data_table.config;
+% 
+% % Example usage
+% numMatches = rows; % Adjust based on your specific usage
+% numEdges = size(pair_ids, 1);
+% 
+% % Convert pair_ids to edges
+% edges = nan(numEdges, 2);
+% edges(:, 2) = mod(pair_ids, 2147483647);
+% edges(:, 1) = (pair_ids - edges(:, 2)) / 2147483647;
 %% Load Input
 % Each row in input file (.txt) consists of "pair_id num_of_matches" from COLMAP DB
-pair_data=load("/Users/safuan/Python/IACV_project/camtripsfm/inlier_matches.txt");
+pair_data=load("/Users/safuan/Python/IACV_project/datasets/Alcatraz/alcatraz_matches.txt");
 pair_ids=pair_data(:,1);
 numMatches=pair_data(:,2);
 clear pair_data
@@ -179,4 +179,4 @@ pair_ids_in_triplets(eidx,:)=[];
 
 %% Save Output
 % Output file (.txt) consists of "pair_id" which should be retained in COLMAP DB
-writematrix(pair_ids_in_triplets,'output.txt');
+writematrix(pair_ids_in_triplets, "/Users/safuan/Python/IACV_project/datasets/Alcatraz/filtered_alcatraz_matches.txt");
