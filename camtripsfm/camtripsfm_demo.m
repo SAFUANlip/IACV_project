@@ -59,7 +59,7 @@ m=0.7; % Minimum mcore edges should satisfy
 % edges(:, 1) = (pair_ids - edges(:, 2)) / 2147483647;
 %% Load Input
 % Each row in input file (.txt) consists of "pair_id num_of_matches" from COLMAP DB
-pair_data=load("/Users/safuan/Python/IACV_project/datasets/Alcatraz/alcatraz_matches.txt");
+pair_data=load("/Users/safuan/Python/IACV_project/datasets/WaterTower/water_tower_matches.txt");
 pair_ids=pair_data(:,1);
 numMatches=pair_data(:,2);
 clear pair_data
@@ -79,8 +79,8 @@ eidx=ismember(edges(:,1),nodes)&ismember(edges(:,2),nodes);
 
 %% Extract the triplet graph
 % Get the triplets
-G=graph(edges(:,1),edges(:,2),1:size(edges,1));
-[~,edgecycles]=allcycles(G,'MaxCycleLength',3);
+G=graph(edges(:,1),edges(:,2),1:size(edges, 1));
+[~,edgecycles]=allcycles(G,'MaxCycleLength', 3);
 
 % Check and remove the edges not participating in the triplets
 ret_edges=false(size(edges,1),1);
@@ -179,4 +179,4 @@ pair_ids_in_triplets(eidx,:)=[];
 
 %% Save Output
 % Output file (.txt) consists of "pair_id" which should be retained in COLMAP DB
-writematrix(pair_ids_in_triplets, "/Users/safuan/Python/IACV_project/datasets/Alcatraz/filtered_alcatraz_matches.txt");
+writematrix(pair_ids_in_triplets, "/Users/safuan/Python/IACV_project/datasets/WaterTower/filtered_water_tower_matches.txt");

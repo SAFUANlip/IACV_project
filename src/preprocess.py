@@ -67,13 +67,13 @@ def extract_matches_to_txt(db_path, output_txt_path):
     conn.close()
 
 
-# Example usage
-# db_file = "../datasets/Alcatraz/alcatraz_database.db"
-# output_file = "../datasets/Alcatraz/alcatraz_matches.txt"
+
+# db_file = "../datasets/south-building/south_building_database.db"
+# output_file = "../datasets/south-building/south_building_matches.txt"
 # extract_matches_to_txt(db_file, output_file)
 
-original_db = "../datasets/Alcatraz/alcatraz_database.db"
-ids_to_remove_txt = "../datasets/Alcatraz/filtered_alcatraz_matches.txt"
-new_db = "../datasets/Alcatraz/filtered_alcatraz_database.db"
+original_db = "../datasets/WaterTower/water_tower_database.db"
+ids_to_remove_txt = "../datasets/WaterTower/filtered_water_tower_matches.txt"
+new_db = "../datasets/WaterTower/filtered_water_tower_database.db"
 create_new_db_with_removed_ids_via_query(original_db, ids_to_remove_txt, new_db)
 
