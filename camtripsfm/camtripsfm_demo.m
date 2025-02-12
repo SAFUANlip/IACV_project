@@ -33,7 +33,6 @@
 clear; close all;
 
 %% Hyperparameter
-m=0.7; % Minimum mcore edges should satisfy
 
 % %%
 % file_path = "/Users/safuan/Python/IACV_project/datasets/Alcatraz/alcatraz_matches.txt";
@@ -58,8 +57,13 @@ m=0.7; % Minimum mcore edges should satisfy
 % edges(:, 2) = mod(pair_ids, 2147483647);
 % edges(:, 1) = (pair_ids - edges(:, 2)) / 2147483647;
 %% Load Input
+
+m=0.5; % Minimum mcore edges should satisfy
+
 % Each row in input file (.txt) consists of "pair_id num_of_matches" from COLMAP DB
-pair_data=load("/Users/safuan/Python/IACV_project/datasets/WaterTower/water_tower_matches.txt");
+pair_data=load("/Users/safuan/Python/IACV_project/datasets/urbanII/urban2_matches_python.txt");
+save_path = "/Users/safuan/Python/IACV_project/datasets/urbanII/filtered_urban2_matches05.txt"
+
 pair_ids=pair_data(:,1);
 numMatches=pair_data(:,2);
 clear pair_data
@@ -179,4 +183,4 @@ pair_ids_in_triplets(eidx,:)=[];
 
 %% Save Output
 % Output file (.txt) consists of "pair_id" which should be retained in COLMAP DB
-writematrix(pair_ids_in_triplets, "/Users/safuan/Python/IACV_project/datasets/WaterTower/filtered_water_tower_matches.txt");
+writematrix(pair_ids_in_triplets, save_path);

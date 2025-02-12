@@ -36,6 +36,41 @@ def create_new_db_with_removed_ids_via_query(original_db_path, ids_to_remove_txt
     conn.close()
 
 
+def create_new_db_with_retained_ids_via_query(original_db_path, ids_to_retain_txt_path, new_db_path):
+    """
+    Creates a new COLMAP database by retaining only rows using a SELECT query.
+
+    Args:
+        original_db_path (str): Path to the original COLMAP database file (.db).
+        ids_to_retain_txt_path (str): Path to the .txt file containing `pair_id`s to retain.
+        new_db_path (str): Path to the new database file to be created.
+    """
+    # Copy the original database to a new file
+    shutil.copyfile(original_db_path, new_db_path)
+
+    # Read pair_ids to be retained from the text file
+    with open(ids_to_retain_txt_path, "r") as f:
+        ids_to_retain = [line.strip() for line in f]
+
+    # Format the IDs into a comma-separated string for the SQL query
+    ids_to_retain_str = ', '.join(ids_to_retain)
+
+    # Connect to the new database
+    conn = sqlite3.connect(new_db_path)
+    cursor = conn.cursor()
+
+    # Use the DELETE query to remove rows not matching the IDs
+    cursor.execute(f"""
+        DELETE FROM two_view_geometries
+        WHERE pair_id NOT IN ({ids_to_retain_str})
+    """)
+
+    # Commit changes and close the connection
+    conn.commit()
+    conn.close()
+
+
+
 def extract_matches_to_txt(db_path, output_txt_path):
     """
     Extracts `pair_id` and `num_of_matches` using the `rows` column from a COLMAP database file
@@ -68,12 +103,14 @@ def extract_matches_to_txt(db_path, output_txt_path):
 
 
 
-# db_file = "../datasets/south-building/south_building_database.db"
-# output_file = "../datasets/south-building/south_building_matches.txt"
+# db_file = "../datasets/urbanII/urban2_database.db"
+# output_file = "../datasets/urbanII/urban2_matches_python.txt"
 # extract_matches_to_txt(db_file, output_file)
 
-original_db = "../datasets/WaterTower/water_tower_database.db"
-ids_to_remove_txt = "../datasets/WaterTower/filtered_water_tower_matches.txt"
-new_db = "../datasets/WaterTower/filtered_water_tower_database.db"
-create_new_db_with_removed_ids_via_query(original_db, ids_to_remove_txt, new_db)
+original_db = "../datasets/urbanII/urban2_database.db"
+ids_to_remove_txt = "../datasets/urbanII/filtered_urban2_matches09.txt"
+new_db = "../datasets/urbanII/filtered_urban2_database09.db"
+create_new_db_with_retained_ids_via_query(original_db, ids_to_remove_txt, new_db)
+
+#create_new_db_with_removed_ids_via_query(original_db, ids_to_remove_txt, new_db)
 
