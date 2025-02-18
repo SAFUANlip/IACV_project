@@ -125,3 +125,4 @@ In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recogni
 
 ## Contact Information
 * Iusupov Safuan [Telegram](https://t.me/IusupovSafuan) | [GitHub](https://github.com/SAFUANlip) | safuan.iusupov@mail.polimi.it
+* Erfan Eshghollahi [Telegram](https://t.me/mr_2e) | [GitHub](https://github.com/erfaneshghelahi) | seyederfan.eshghollahi@mail.polimi.it
